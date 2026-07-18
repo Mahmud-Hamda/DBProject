@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Insertion Panel</title>
+  <style>
+    :root {
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --text: #1b1f2a;
+      --muted: #5d667a;
+      --line: #d9dfec;
+      --primary: #0f5bd8;
+      --primary-hover: #0a44a3;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #eef2fb 0%, var(--bg) 100%);
+      color: var(--text);
+      padding: 20px;
+    }
+
+    .container {
+      width: min(850px, 95%);
+      margin: 20px auto;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    .lead {
+      text-align: center;
+      margin: 0 0 30px;
+      color: var(--muted);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 16px rgba(25, 37, 72, 0.05);
+    }
+
+    .card h2 {
+      margin: 0 0 16px;
+      font-size: 1.25rem;
+      color: var(--primary);
+      border-bottom: 2px solid var(--bg);
+      padding-bottom: 8px;
+    }
+
+    .fields {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid #c9d3e6;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font: inherit;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: 2px solid #9ebfff;
+      border-color: #88acef;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    button {
+      margin-top: 16px;
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font: inherit;
+      font-weight: 700;
+      color: #fff;
+      background: var(--primary);
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background: var(--primary-hover);
+    }
+
+    .setup-link {
+      display: inline-block;
+      margin-bottom: 24px;
+      padding: 10px 15px;
+      background: #eef2fb;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px dashed var(--primary);
+    }
+
+    .setup-link:hover {
+      background: var(--primary);
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+    <h1>Database Insertion Panel</h1>
+    <!-- <p class="lead">Submit data directly to your Express server at <code>/insert</code></p>
+
+    <div style="text-align: center;">
+      <a href="/install" class="setup-link" target="_blank">⚙️ Click Here to Initialize Tables First</a>
+    </div> -->
+
+    <section class="card">
+      <h2>1. Add New User</h2>
+      <form action="http://localhost:4000/insert" method="POST">
+        <input type="hidden" name="action" value="insert_user" />
+        <div class="fields">
+          <label>
+            User Name
+            <input type="text" name="user_name" required placeholder="e.g., Mahmud" />
+          </label>
+          <label>
+            Password
+            <input type="password" name="user_password" required placeholder="••••••••" />
+          </label>
+        </div>
+        <button type="submit">Submit User</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>2. Add New Product</h2>
+      <form action="http://localhost:4000/insert" method="POST">
+        <input type="hidden" name="action" value="insert_product" />
+        <div class="fields">
+          <label>
+            Product Name
+            <input type="text" name="product_name" required placeholder="e.g., iPhone 15 Pro" />
+          </label>
+          <label>
+            Product URL
+            <input type="url" name="product_url" required placeholder="https://example.com/products/iphone15" />
+          </label>
+        </div>
+        <button type="submit">Submit Product</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>3. Add Product Description</h2>
+      <form action="http://localhost:4000/insert" method="POST">
+        <input type="hidden" name="action" value="insert_description" />
+        <div class="fields">
+          <label>
+            Product ID (References existing product)
+            <input type="number" name="product_id" required placeholder="e.g., 1" min="1" step="1" />
+          </label>
+          <label>
+            Brief Description
+            <input type="text" name="product_brief_description" required placeholder="Short summary" />
+          </label>
+          <label>
+            Image URL
+            <input type="url" name="product_img" required placeholder="https://example.com/image.jpg" />
+          </label>
+          <label>
+            Product Link
+            <input type="url" name="product_link" required placeholder="https://example.com/product" />
+          </label>
+        </div>
+        <div style="margin-top: 16px;">
+          <label>
+            Full Description
+            <textarea name="product_description" required
+              placeholder="Write the full specifications or description here..."></textarea>
+          </label>
+        </div>
+        <button type="submit">Submit Description</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>4. Add Product Price</h2>
+      <form action="http://localhost:4000/insert" method="POST">
+        <input type="hidden" name="action" value="insert_price" />
+        <div class="fields">
+          <label>
+            Product ID (References existing product)
+            <input type="number" name="product_id" required placeholder="e.g., 1" min="1" step="1" />
+          </label>
+          <label>
+            Starting Price
+            <input type="number" name="starting_price" step="0.01" required placeholder="999.99" min="0" />
+          </label>
+          <label>
+            Price Range
+            <input type="text" name="price_range" required placeholder="e.g., $999 - $1299" />
+          </label>
+        </div>
+        <button type="submit">Submit Price</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>5. Place New Order</h2>
+      <form action="http://localhost:4000/insert" method="POST">
+        <input type="hidden" name="action" value="insert_order" />
+        <div class="fields">
+          <label>
+            Product ID (References existing product)
+            <input type="number" name="product_id" required placeholder="e.g., 1" min="1" step="1" />
+          </label>
+          <label>
+            User ID (References existing user)
+            <input type="number" name="user_id" required placeholder="e.g., 1" min="1" step="1" />
+          </label>
+        </div>
+        <button type="submit">Submit Order</button>
+      </form>
+    </section>
+
+  </main>
+
+</body>
+
+</html>
